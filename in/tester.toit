@@ -176,6 +176,6 @@ main:
 
   config.serve --port=7017
 
-  latch := monitor.Latch
-  // Wait indefinitely.
-  latch.get
+  while true:
+    config.updated.wait
+    print "Updated values: $config.values"
