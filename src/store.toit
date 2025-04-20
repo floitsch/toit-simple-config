@@ -7,18 +7,18 @@ import system.storage
 SIMPLE-CONFIG-KEY ::= "simple-config"
 
 interface Store:
-  constructor.ram storage-path/string:
-    return StoreRam_ storage-path
+  constructor storage-uri/string:
+    return StoreSystem_ storage-uri
 
   save values/Map -> none
   load -> Map?
   close -> none
 
-class StoreRam_ implements Store:
+class StoreSystem_ implements Store:
   bucket_/storage.Bucket? := ?
 
-  constructor storage-path/string:
-    bucket_ = storage.Bucket.open --ram storage-path
+  constructor storage-uri/string:
+    bucket_ = storage.Bucket.open storage-uri
 
   save values/Map:
     bucket_[SIMPLE-CONFIG-KEY] = values

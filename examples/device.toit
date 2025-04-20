@@ -67,7 +67,7 @@ CONFIG-SCHEMA ::= {
 }
 
 main:
-  config := simple-config.Config "toitware.com/toit-simple-config/example" --schema=CONFIG-SCHEMA
+  config := simple-config.Config "ram:toitware.com/toit-simple-config/example" --schema=CONFIG-SCHEMA
   config.serve --port=7017
 
   task::
