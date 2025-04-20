@@ -22,6 +22,10 @@ $(eval $(call convert,src/html/styles-css.toit,in/styles.css))
 rebuild-cmake:
 	@cmake -B build -S .
 
+.PHONY: install-pkgs
+install-pkgs: rebuild-cmake
+	@cmake --build build --target install-pkgs
+
 .PHONY: test
-test: rebuild-cmake $(OUT_FILES)
+test: rebuild-cmake install-pkgs $(OUT_FILES)
 	@cmake --build build --target check
