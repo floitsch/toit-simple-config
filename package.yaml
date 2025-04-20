@@ -1,0 +1,10 @@
+name: simple-config
+description: Simple configuration management.
+
+environment:
+  sdk: ^2.0.0-alpha.170
+
+dependencies:
+  http:
+    url: github.com/toitlang/pkg-http
+    version: ^2.9.0
