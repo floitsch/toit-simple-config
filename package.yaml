@@ -1,0 +1,6 @@
+name: simple-config
+description: Simple configuration management.
+dependencies:
+  http:
+    url: github.com/toitlang/pkg-http
+    version: ^2.9.0
