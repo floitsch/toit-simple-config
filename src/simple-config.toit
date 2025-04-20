@@ -12,6 +12,9 @@ import system.storage
 import .resources
 import .store
 
+/**
+A simple configuration server.
+*/
 class Config:
   schema/Map
   values/Map := ?
@@ -20,17 +23,40 @@ class Config:
   store_/Store? := ?
   server-task_/Task? := null
 
-  constructor storage-path/string --schema/Map [--init]:
-    store := Store.ram storage-path
+  /**
+  Create a new configuration server.
+
+  The $storage-uri is passed to the $storage.Bucket constructor and should be a
+    valid storage URI. Typically, these are of the form `ram:path` or `flash:path`.
+
+  If no value is found in the store, the $init function is called to initialize
+    the configuration. The $init function should return a map with the initial
+    values.
+  */
+  constructor storage-uri/string --schema/Map [--init]:
+    store := Store storage-uri
     resources := Resources
     return Config
         --store=store
         --schema=schema
         --init=init
 
-  constructor storage-path/string --schema/Map:
-    return Config storage-path --schema=schema --init=(: {:})
+  /**
+  Create a new configuration server.
 
+  The $storage-uri is passed to the $storage.Bucket constructor and should be a
+    valid storage URI. Typically, these are of the form `ram:path` or `flash:path`.
+
+  If no value is found in the store, an empty map is used as the initial configuration.
+  */
+  constructor storage-uri/string --schema/Map:
+    return Config storage-uri --schema=schema --init=(: {:})
+
+  /**
+  Create a new configuration server.
+
+  The $store is used to persist the configuration.
+  */
   constructor
       --store/Store
       --.schema
